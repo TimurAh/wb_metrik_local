@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Диагональное масштабирование с прокруткой</title>
+    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100&family=Poppins:wght@700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/adapotiv.css">
+    <link rel="stylesheet" href="../static/css/flatpickr.min.css">
+</head>
+<body>
+<div class="site-wrapper" id="app">
+    <header>
+        <div class="container">
+            <div class="header">
+                <div class="logo"><span class="logo-accent">//</span>metrica</div>
+                <div class="header-wrapper">
+                    <nav>
+                        <a href="#" class="nav-link active"><h2>оцифровка</h2></a>
+                        <a href="#" class="nav-link"><h2>экономика</h2></a>
+                        <a href="#" class="nav-link"><h2>рекламная аналитика</h2></a>
+                    </nav>
+                    <nav>
+                        <button class="background-accent"><h2>база знаний</h2></button>
+                        <button class="background-accent"><h2>помощь</h2></button>
+                        <button class="background-accent"><h2>standart до 23 дек 2025</h2></button>
+                        <div class="logout">
+                            <select class="account-img ">
+                                <option value="Настройки">Настройки</option>
+                                <option value="Профиль">Профиль</option>
+                                <option value="Сменить аккаунт">Сменить аккаунт</option>
+                                <option value="Выход">Выход</option>
+                            </select>
+                            <div class="drop-list"></div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="section-list">
+        <section class="first-section">
+            <div class="section-wrapper">
+                <div class="key-indicators">
+                    <div><h1>ключевые показатели</h1></div>
+                    <div class="filter-bar">
+                        <div class="date-filter">
+                            <input type="text" id="baseCalendar" class="calendar active"/>
+                            <h2 class=" accent-text-light">сравнение</h2>
+                            <input type="text" id="extraCalendar" class="calendar active"/>
+                        </div>
+                        <div class="filter-list active">
+                            <h2>бренд</h2>
+                            <div class="drop-list"></div>
+                        </div>
+                        <div class="filter-list">
+                            <h2>категории</h2>
+                            <div class="drop-list"></div>
+                        </div>
+                        <div class="filter-list">
+                            <h2>артикулы</h2>
+                            <div class="drop-list"></div>
+                        </div>
+                    </div>
+                    <div class="indicators">
+                        <div class="indicator-box">
+                            <h4>чистая прибыль</h4>
+                            <div class="indicator-output">
+                                <h3 class="indicator-value">224 456</h3>
+                                <h3 class="indicator-unit">Р</h3>
+                            </div>
+                            <div class="indicator-extra-output">
+                                <h4 class="indicator-extra-value">-22 304</h4>
+                            </div>
+                        </div>
+                        <div class="indicator-box">
+                            <h4>продажи</h4>
+                            <div class="indicator-output">
+                                <h3 class="indicator-value">1 213 124</h3>
+                                <h3 class="indicator-unit">Р</h3>
+                            </div>
+                            <div class="indicator-extra-output">
+                                <h4 class="indicator-extra-value">-321 312</h4>
+                            </div>
+                        </div>
+                        <div class="indicator-box">
+                            <h4>марж-сть</h4>
+                            <div class="indicator-output">
+                                <h3 class="indicator-value">25</h3>
+                                <h3 class="indicator-unit">%</h3>
+                            </div>
+                            <div class="indicator-extra-output">
+                                <h4 class="indicator-extra-value">+3</h4>
+                            </div>
+                        </div>
+                        <div class="indicator-box">
+                            <h4>roi</h4>
+                            <div class="indicator-output">
+                                <h3 class="indicator-value">65</h3>
+                                <h3 class="indicator-unit">%</h3>
+                            </div>
+                            <div class="indicator-extra-output">
+                                <h4 class="indicator-extra-value">+5</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="myLineChart"></canvas>
+            </div>
+        </section>
+        <section class="second-section">
+            <div class="section-wrapper">
+                <h1>расходы</h1>
+            </div>
+        </section>
+    </div>
+
+</div>
+<script src="../static/js/adaptive.js"></script>
+<script src="../static/js/flatpickr.js"></script>
+<script src="../static/js/flatpickrRu.js"></script><!--нужно подключать после flatpickr!-->
+<script src="../static/js/mainDynamic.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../static/js/lineGraph.js"></script>
+</body>
+</html>

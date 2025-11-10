@@ -1,0 +1,386 @@
+:root {
+    --accent-text-light-color: #B2B2B2;
+    --accent-background-color: #F8F8FA;
+    --border-color: #D9D9D9;
+    --color-good: #2FCE49;
+    --color-bad: #C53A3A;
+
+
+    --basic-font: Geologica;
+
+    --button-border-radius: 8px;
+    --dropList-border-radius: 8px;
+    --card-border-radius: 21px;
+
+
+    --logo-font: Poppins;
+    --corp-color-light: #F3F9FF;
+
+
+    --basic-font-color: #1E1E1E;
+    --active-color: #2A75CA;
+
+
+    --section-border: 1px #D6D6D6 solid;
+    --border-radius: 38px;
+}
+
+/* H1 - заголовок  и больший акцент(46)
+    H2 -основной текст (22) и меньший акцент
+    H3 - акцент большой (51)
+*/
+/* Подготовительные работы*/
+h1, h2, h3, h4 {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 46px;
+    font-weight: 100;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: 100;
+}
+
+button {
+    height: 45px;
+    font-family: var(--basic-font);
+    font-weight: 100;
+    margin: 0;
+    padding: 6px 15px 9px 15px;
+    background-color: var(--accent-background-color);
+    border: none;
+    border-radius: var(--button-border-radius);
+    font-size: 20px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    font-size: 16px;
+    font-family: var(--basic-font);
+}
+
+.site-wrapper {
+    width: 1920px;
+    transform-origin: top left;
+    transition: transform 1s ease;
+    box-sizing: border-box;
+}
+
+.accent-text-light {
+    color: var(--accent-text-light-color);
+}
+
+.main-content {
+    display: flex;
+}
+
+/*шапка*/
+
+.header-wrapper {
+    max-width: 1920px;
+    max-height: 100px; /*возможно это будет ломать адаптив*/
+    border-bottom: 1px var(--border-color) solid;
+    margin: 0;
+    padding: 32px 50px 17px 35px;
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}
+
+.logo {
+    font-size: 31px;
+}
+
+.nav-bar, nav {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    align-content: center;
+}
+
+/*select logout*/
+.logout .choices {
+    padding-right: 6px;
+    width: fit-content;
+}
+
+.choices__list[aria-expanded] {
+    width:150px;
+    right: 0;
+    top:0px;
+    align-items: center;
+    border-radius: 30px;
+}
+/*Убираем видимость выбранного элемента, задаем кружок(потомок choices__list--single)*/
+.logout .choices__list.choices__list--single .choices__item.choices__item--selectable {
+    background-color: blue;
+    border-radius: 50%;
+    width: 37px;
+    height: 37px;
+    color: transparent;
+
+}
+
+/*убираем стандартный цвет фона и рамку с отступами*/
+.logout .choices__inner {
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    align-content: center;
+}
+
+/*стрелочка*/
+.logout .choices[data-type*=select-one]:after {
+    border: none;
+    background-image: url("../img/drop-list.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 7px;
+    height: 3px;
+    top: 49%;
+}
+
+.logout .choices[data-type*=select-one].is-open:after {
+    transform: rotate(180deg);
+    top: 60%;
+}
+
+
+/*навигационное меню*/
+.nav-menu-wrapper {
+    width: 70px;
+    border: 1px var(--border-color) solid;
+
+}
+
+.left-nav-menu {
+    position: sticky;
+    top: 0;
+    margin: 0;
+    padding-top: 50px;
+    width: 70px;
+
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+}
+
+.menu-item {
+    height: 36px;
+    width: 36px;
+    border-radius: 50%;
+    background-color: red;
+}
+
+/*карточки*/
+.card-canvas {
+    margin: 40px 50px 50px 50px;
+    padding: 0;
+    display: grid;
+    gap: 10px 10px;
+    grid-template-columns: repeat(7, 1fr); /* 4 одинаковых столбца */
+
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    border-radius: var(--card-border-radius);
+    border-width: 1px;
+    border-color: var(--border-color);
+    border-style: none;
+    width: 240px;
+    height: 330px;
+    transition: opacity 2s ease-in-out;
+}
+.card.dragging {
+    opacity: 0.8;
+    border: 2px dashed var(--accent-text-light-color);
+}
+.active-card,.hover-card{
+    border-style: solid;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.positive-card{
+    border-color: var(--color-good);
+    color: var(--color-good);
+}
+.negative-card{
+    border-color: var(--color-bad);
+    color: var(--color-bad);
+
+}
+.card-wrapper {
+    padding: 0;
+    margin: 29px 30px 30px 20px;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    transition: transform 5s ease-in-out;
+
+}
+
+.card-main-visibility, .card-extra-visibility-labels, .card-extra-visibility-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-main-visibility {
+    mask-image: linear-gradient(to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+    );
+}
+.card-extra-visibility-labels {
+    mask-image: linear-gradient(to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+    );
+    width: 148px;
+
+}
+
+
+
+.card-extra-visibility {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    opacity: 0;
+    transition: opacity .2s ease-in-out;
+}
+
+
+.icon-item {
+    margin-bottom: 2px;
+    padding: 0;
+    height: 22px;
+    width: 22px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    z-index: 33;
+    position: relative; /* Добавьте это, если ещё нет */
+}
+
+.question-item {
+    background-image: url("../img/question-circle.svg");
+}
+
+.info-item {
+    background-image: url("../img/info-circle.svg");
+}
+
+.text-over-spin {
+    white-space: nowrap;
+    padding-left: 10px;
+
+}
+
+.is-scrolling {
+    animation: scroll-text 2s;
+}
+
+.scrollable {
+
+}
+
+@keyframes scroll-text {
+    /* 0% - 80% от 12.5с = 10 секунд движения */
+    0% {
+        transform: translateX(0);
+    }
+    40% {
+        /* До этой точки идет движение */
+        transform: translateX(-35%);
+    }
+    41% {
+    }
+    /* 80% - 100% от 12.5с = 2.5 секунды паузы */
+    51% {
+        /* Начинаем паузу с тем же значением, что и конец движения */
+        transform: translateX(-35%);
+    }
+    90% {
+        /* Пауза длится до конца (100%), затем анимация повторяется с 0% */
+        transform: translateX(0);
+    }
+    91% {
+    }
+}
+
+
+
+
+
+/* Tooltip базовые стили */
+.tooltip {
+    position: absolute;
+    bottom: 100%; /* Появляется сверху иконки; измени на top/left/right для другой позиции */
+    left: 50%;
+    transform: translateX(-50%); /* Центрируем по горизонтали */
+    width: 200px; /* Ширина окна, подстрой под нужды */
+    padding: 10px;
+    background-color: #fff; /* Фон, можно использовать var(--accent-background-color) */
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: var(--basic-font-color);
+    opacity: 0; /* Невидим по умолчанию */
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out; /* Плавное появление */
+    z-index: 100; /* Выше других элементов */
+    pointer-events: none; /* Не мешает кликам */
+}
+
+/* Показываем на hover */
+.icon-item:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Опционально: стрелочка для "пузыря" */
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* Стрелочка снизу, если tooltip сверху */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #fff transparent transparent transparent; /* Цвет стрелочки */
+}
+
+
+.hidden{
+    visibility: hidden;
+}
+.active,.hover-active{
+    opacity: 1;
+}
+.neutral{
+    color:#000
+}

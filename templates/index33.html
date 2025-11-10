@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DeltaMetrix</title>
+    <!-- для сброса всех настроек -->
+    <link rel="stylesheet" href="../static/css/normalize.min.css">
+    <!-- шрифты -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- для выпадающего списка-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
+
+    <!-- личный css набор -->
+    <link rel="stylesheet" href="../static/css/style33.css">
+</head>
+<body>
+<div class="site-wrapper" id="app">
+    <header>
+        <div class="header-wrapper">
+            <div class="logo">
+                DeltaMetric
+            </div>
+            <div class="nav-bar">
+                <nav>
+
+                    <button>написать нам</button>
+                    <button>помощь</button>
+                    <button><span class="accent-text-light">standart</span> до 23 дек 2025</button>
+                </nav>
+                <label class="logout">
+                    <select class="logout-select">
+                        <option value="Настройки">Настройки</option>
+                        <option value="Профиль">Профиль</option>
+                        <option value="Сменить аккаунт">Сменить аккаунт</option>
+                        <option value="Выход">Выход</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+    </header>
+    <div class="main-content">
+        <div class="nav-menu-wrapper">
+            <div class="left-nav-menu">
+                <div class="menu-item"></div>
+                <div class="menu-item"></div>
+                <div class="menu-item"></div>
+                <div class="menu-item"></div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="card-canvas">
+                <div class="card positive-card">
+                    <div class="card-wrapper">
+                        <div class="card-main-visibility">
+                            <div class="card-name text-over-spin"><h2>Чистая Чистая прибыль</h2></div>
+                            <div class="card-difference-percent text-over-spin"><h1> +5% </h1></div>
+                            <div class="card-current-percent text-over-spin"><h2>13</h2></div>
+                            <div class="card-previous-percent text-over-spin neutral"><h2>10%</h2></div>
+                        </div>
+
+                        <div class="card-extra-visibility">
+                            <div class="card-extra-visibility-labels">
+                                <div class="card-current-value text-over-spin"><h2>800 000 000 000</h2></div>
+                                <div class="card-current-value text-over-spin neutral"><h2>800 000</h2></div>
+                            </div>
+                            <div class="card-extra-visibility-icons">
+                                <div class="icon-item info-item">
+                                    <div class="tooltip">Это инфо о карточке: дополнительные детали, ссылки или объяснения.</div>
+                                </div>
+                                <div class="icon-item question-item">
+                                    <div class="tooltip">Это вопрос: FAQ или помощь по метрике.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card positive-card">
+                    <div class="card-wrapper">
+                        <div class="card-main-visibility">
+                            <div class="card-name text-over-spin"><h2>Выручка</h2></div>
+                            <div class="card-difference-percent text-over-spin"><h1> +5% </h1></div>
+                            <div class="card-current-percent text-over-spin"><h2>13</h2></div>
+                            <div class="card-previous-percent text-over-spin neutral"><h2>10%</h2></div>
+                        </div>
+
+                        <div class="card-extra-visibility">
+                            <div class="card-extra-visibility-labels">
+                                <div class="card-current-value text-over-spin"><h2>800 000 000 000</h2></div>
+                                <div class="card-current-value text-over-spin neutral"><h2>800 000</h2></div>
+                            </div>
+                            <div class="card-extra-visibility-icons">
+                                <div class="icon-item info-item">
+                                    <div class="tooltip">Это инфо о карточке: дополнительные детали, ссылки или объяснения.</div>
+                                </div>
+                                <div class="icon-item question-item">
+                                    <div class="tooltip">Это вопрос: FAQ или помощь по метрике.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card negative-card">
+                    <div class="card-wrapper">
+                        <div class="card-main-visibility">
+                            <div class="card-name text-over-spin"><h2>Логистика</h2></div>
+                            <div class="card-difference-percent text-over-spin"><h1> -2% </h1></div>
+                            <div class="card-current-percent text-over-spin"><h2>13</h2></div>
+                            <div class="card-previous-percent text-over-spin neutral"><h2>10%</h2></div>
+                        </div>
+
+                        <div class="card-extra-visibility">
+                            <div class="card-extra-visibility-labels">
+                                <div class="card-current-value text-over-spin"><h2>800 000 000 000</h2></div>
+                                <div class="card-current-value text-over-spin neutral"><h2>800 000</h2></div>
+                            </div>
+                            <div class="card-extra-visibility-icons">
+                                <div class="icon-item info-item"></div>
+                                <div class="icon-item question-item"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card positive-card">
+                    <div class="card-wrapper">
+                        <div class="card-main-visibility">
+                            <div class="card-name text-over-spin"><h2>Прибыль</h2></div>
+                            <div class="card-difference-percent text-over-spin"><h1> +5% </h1></div>
+                            <div class="card-current-percent text-over-spin"><h2>13</h2></div>
+                            <div class="card-previous-percent text-over-spin neutral"><h2>10%</h2></div>
+                        </div>
+
+                        <div class="card-extra-visibility">
+                            <div class="card-extra-visibility-labels">
+                                <div class="card-current-value text-over-spin"><h2>800 000 000 000</h2></div>
+                                <div class="card-current-value text-over-spin neutral"><h2>800 000</h2></div>
+                            </div>
+                            <div class="card-extra-visibility-icons">
+                                <div class="icon-item info-item"></div>
+                                <div class="icon-item question-item"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Choices.js JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<!-- личный скрипт для выпадающего списка-->
+<script src="../static/js/select.js"></script>
+<!-- скрипта для автоскролинга-->
+<script src="../static/js/scroll-text.js"></script>
+<!-- скрипта для динамики карточек-->
+<script src="../static/js/card-dynamic.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+# PyCharm config
+.idea/
+utils/.env
+.env

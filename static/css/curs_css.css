@@ -1,0 +1,130 @@
+:root {
+    --basic-font: Geologica;
+
+    --corp-color-light: #F3F9FF;
+    --color-good: #2FCE49;
+    --color-bad: #C53A3A;
+    --basic-font-color: #1E1E1E;
+    --active-color: #2A75CA;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+html, body {
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111;
+    }
+#app {
+   width: 1920px; /* базовая ширина макета */
+      height: 100%;
+      background: linear-gradient(135deg, #007aff, #00ffaa);
+      border-radius: 16px;
+      color: white;
+      font-size: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-origin: center center;
+      transition: transform 2s ease;
+
+}
+
+
+.container {
+    align-content: center;
+    max-width: 1900px;
+    height: 100px;
+    border-radius: 38px;
+    border: 1px #D6D6D6 solid
+}
+
+.header {
+    display: flex;
+    gap: 60px;
+    align-content: center;
+    margin: auto 50px;
+}
+
+.header-wrapper {
+    width: 1900px;
+    display: flex;
+    align-content: center;
+    gap: 30px;
+    justify-content: space-between;
+    font-weight: 100;
+}
+
+.logo {
+    align-content: center;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.logo-accent {
+    color: #2A75CA;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+    align-content: center;
+}
+
+.nav-link {
+    color: var(--basic-font-color);
+    align-content: center;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: var(--active-color);
+}
+
+.background-accent {
+    margin: auto;
+    padding: 7px 30px 9px 30px;
+    height: 43px;
+    background: var(--corp-color-light);
+    border-radius: 26px;
+    border: none;
+    font-weight: 100;
+}
+
+.active {
+    color: var(--active-color);
+}
+
+.logout {
+    display: flex;
+    margin: auto;
+    gap: 10px;
+}
+
+.account-img {
+    margin: auto;
+    border-radius: 50%;
+    width: 41px;
+    height: 41px;
+    background: var(--corp-color-light);
+    background-image: url("../img/avatar_settings.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 100;
+}
+
+.drop-list {
+    margin: auto;
+    background-image: url("../img/drop-list.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 7px;
+    height: 3px;
+}

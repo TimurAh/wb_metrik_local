@@ -1,0 +1,239 @@
+:root {
+    --basic-font: Geologica;
+    --logo-font: Poppins;
+    --corp-color-light: #F3F9FF;
+    --color-good: #2FCE49;
+    --color-bad: #C53A3A;
+    --basic-font-color: #1E1E1E;
+    --active-color: #2A75CA;
+    --accent-text-light:#808080;
+
+    --section-border: 1px #D6D6D6 solid;
+    --border-radius: 38px;
+}
+
+/* H1 - заголовок (46)
+    H2 -основной текст (22)
+    H3 - акцент большой (51)
+    H4 - акцент малый (18)
+*/
+/* Подготовительные работы*/
+h1, h2, h3, h4 {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 46px;
+    font-weight: 100;
+    margin-bottom: 31px;
+}
+
+h2 {
+    font-size: 22px;
+    font-weight: 100;
+}
+
+h3 {
+    font-size: 46px;
+    font-weight: 100;
+}
+
+h4 {
+    font-size: 18px;
+    font-weight: 100;
+    margin-bottom: 5px;
+}
+input{
+    font-family: var(--basic-font);
+    background-color: transparent;
+    font-weight: 100;
+    font-size: 22px;
+    border: none;
+    width: 271px;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    font-size: 16px;
+    font-family: var(--basic-font);
+}
+
+.site-wrapper {
+    width: 1920px;
+    transform-origin: top left;
+    transition: transform 1s ease;
+    box-sizing: border-box;
+}
+.accent-text-light{
+    color:var(--accent-text-light);
+}
+
+
+
+
+.container {
+    align-content: center;
+    max-width: 1900px;
+    height: 100px;
+    margin: 10px;
+    border-radius: var(--border-radius);
+    border: var(--section-border);
+}
+
+.header {
+    display: flex;
+    gap: 60px;
+    align-content: center;
+    margin: auto 50px;
+
+}
+
+.header-wrapper {
+    width: 1900px;
+    display: flex;
+    align-content: center;
+    gap: 30px;
+    justify-content: space-between;
+    font-weight: 100;
+
+}
+
+.logo {
+    align-content: center;
+    font-size: 36px;
+    font-weight: 700;
+    font-family: var(--logo-font);
+}
+
+.logo-accent {
+    color: #2A75CA;
+}
+
+nav {
+    display: flex;
+    gap: 30px;
+    align-content: center;
+}
+
+.nav-link {
+    color: var(--basic-font-color);
+    align-content: center;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: var(--active-color);
+}
+
+.background-accent {
+    margin: auto;
+    padding: 7px 30px 9px 30px;
+    height: 43px;
+    background: var(--corp-color-light);
+    border-radius: 26px;
+    border: none;
+    font-weight: 100;
+    font-family: var(--basic-font);
+}
+
+.active {
+    color: var(--active-color);
+}
+
+.logout {
+    display: flex;
+    margin: auto;
+    gap: 10px;
+}
+
+.account-img {
+    margin: auto;
+    border-radius: 50%;
+    width: 41px;
+    height: 41px;
+    background: var(--corp-color-light);
+    background-image: url("../img/h.webp");
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 100;
+}
+
+.drop-list {
+    margin: 16px 0 0 0;
+    background-image: url("../img/drop-list.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 7px;
+    height: 3px;
+}
+
+/*секции*/
+
+
+.section-list {
+    gap: 10px;
+    margin: 10px;
+    width: 1900px;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+}
+
+section {
+    border: var(--section-border);
+    border-radius: var(--border-radius);
+}
+
+/*первая секция*/
+.first-section {
+    width: 1527px;
+    height: 950px;
+}
+
+.section-wrapper {
+    margin: 27px auto 50px 50px;
+    gap: 30px;
+    font-weight: 100;
+}
+
+.filter-bar, .date-filter {
+    display: flex;
+    align-content: center;
+    gap: 30px;
+    margin-bottom: 20px;
+    margin-left: -4px;
+}
+
+.indicators {
+    display: flex;
+    align-content: center;
+    gap: 60px;
+}
+.filter-list{
+    display: flex;
+    gap: 10px;
+}
+.indicator-output{
+    display: flex;
+    gap:0.9em;
+    margin-bottom: 4px;
+}
+.chart-container{
+    width: 1385px;
+    height: 600px;
+    margin: 30px 50px 50px 50px;
+    position: relative;
+}
+
+#myLineChart {
+    display: block;
+}
+/*вторая секция*/
+.second-section {
+    width: 363px;
+    height: 950px;
+}
