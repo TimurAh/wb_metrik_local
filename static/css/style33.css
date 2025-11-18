@@ -36,8 +36,8 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-    font-size: 46px;
-    font-weight: 100;
+    font-size: 28px;
+    font-weight: 300;
 }
 
 h2 {
@@ -57,6 +57,18 @@ button {
     font-size: 20px;
 }
 
+.button-list{
+    height: 40px;
+    font-family: var(--basic-font);
+    font-weight: 100;
+    margin: 0;
+    padding: 6px 56px 9px 15px;
+    background-color: var(--accent-background-color);
+    border: none;
+    border-radius: var(--button-border-radius);
+    font-size: 20px;
+    appearance: none;
+}
 html, body {
     margin: 0;
     padding: 0;
@@ -185,7 +197,23 @@ html, body {
     border-radius: 50%;
     background-color: red;
 }
-
+/*Название секции*/
+.section-name{
+    margin: 40px 0 0 50px;
+}
+/*фильтр бар*/
+.filter-bar{
+    margin: 30px 0 0 50px;
+    display: flex;
+    gap: 60px;
+}
+.filter-wrapper, .menu-filter{
+    display: flex;
+    gap: 25px;
+}
+.date-filter{
+    display: flex;
+}
 /*карточки*/
 .card-canvas {
     margin: 40px 50px 50px 50px;
@@ -206,16 +234,15 @@ html, body {
     border-color: var(--border-color);
     border-style: none;
     width: 240px;
-    height: 330px;
+    height: 240px;
     transition: opacity 2s ease-in-out;
 }
 .card.dragging {
-    opacity: 0.8;
+    opacity: 0.3;
     border: 2px dashed var(--accent-text-light-color);
 }
 .active-card,.hover-card{
     border-style: solid;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 .positive-card{
     border-color: var(--color-good);
@@ -228,7 +255,7 @@ html, body {
 }
 .card-wrapper {
     padding: 0;
-    margin: 29px 30px 30px 20px;
+    margin: 20px;
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -241,7 +268,8 @@ html, body {
 .card-main-visibility, .card-extra-visibility-labels, .card-extra-visibility-icons {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1px;
+
 }
 
 .card-main-visibility {
@@ -260,14 +288,13 @@ html, body {
     transparent 100%
     );
     width: 148px;
-
 }
 
 
 
 .card-extra-visibility {
     display: flex;
-    gap: 10px;
+    gap: 30px;
     align-items: flex-end;
     opacity: 0;
     transition: opacity .2s ease-in-out;
@@ -303,10 +330,6 @@ html, body {
     animation: scroll-text 2s;
 }
 
-.scrollable {
-
-}
-
 @keyframes scroll-text {
     /* 0% - 80% от 12.5с = 10 секунд движения */
     0% {
@@ -330,6 +353,8 @@ html, body {
     91% {
     }
 }
+
+
 
 
 

@@ -1,0 +1,90 @@
+:root {
+    --accent-text-light-color: #B2B2B2;
+    --accent-background-color: #F8F8FA;
+    --border-color: #D9D9D9;
+    --color-good: #2FCE49;
+    --color-bad: #C53A3A;
+
+    --basic-font: Geologica;
+    --button-border-radius: 8px;
+    --dropList-border-radius: 8px;
+    --card-border-radius: 21px;
+
+    --logo-font: Poppins;
+    --corp-color-light: #F3F9FF;
+    --corp-color: #234BEB;
+    --basic-font-color: #1E1E1E;
+    --active-color: #2A75CA;
+
+    --section-border: 1px #D6D6D6 solid;
+    --border-radius: 38px;
+}
+
+html {
+    font-family: var(--basic-font);
+}
+
+.wrapperDateMenu {
+    display: flex;
+    align-items: center;
+    align-content: center;
+
+}
+
+.datepicker-input {
+    font-size: 18px;
+    display: flex;
+    gap: 10px;
+    margin: 0 15px;
+    align-items: center;
+    align-content: center;
+}
+
+#baseDateInput {
+
+}
+
+.year-date-datepicker {
+    display: flex;
+    height: 40px;
+    border: 1px solid var(--border-color);
+    width: 60px;
+    color: var(--accent-text-light-color);
+    font-size: 15px;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.datepicker-output {
+    width: 25px;
+}
+
+.datepicker {
+    align-items: center;
+    align-content: center;
+    height: 40px;
+    width: 200px;
+    border: 1px solid var(--border-color);
+}
+
+.right-border-radius {
+    border-bottom-right-radius: var(--button-border-radius);
+    border-top-right-radius: var(--button-border-radius);
+}
+
+.left-border-radius {
+    border-bottom-left-radius: var(--button-border-radius);
+    border-top-left-radius: var(--button-border-radius);
+}
+
+.separator-dateRange {
+    border: none;
+    background-image: url("../img/range_separator.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 28px;
+    height: 1px;
+
+}

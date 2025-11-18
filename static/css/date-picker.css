@@ -1,0 +1,63 @@
+.date-picker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    border: 1px solid blue;
+    padding: 10px;
+    width: fit-content;
+    margin: 20px auto;
+}
+
+.picker-column {
+    width: 50px;
+    height: 150px; /* Высота для 5 видимых элементов (central + 2 up/down) */
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    user-select: none;
+}
+
+.picker-column.year {
+    width: 80px; /* Шире для года */
+}
+
+.picker-items {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: transform 0.3s ease-out;
+}
+
+.picker-item {
+    height: 30px; /* Высота одного элемента */
+    line-height: 30px;
+    color: black;
+    opacity: 1;
+}
+
+.picker-item.inactive {
+    color: gray;
+    opacity: 0.5;
+}
+
+.picker-column::before {
+    content: '';
+    position: absolute;
+    top: 60px; /* Центр для current */
+    left: 0;
+    width: 100%;
+    height: 30px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Для скролла */
+.picker-column {
+    touch-action: pan-y; /* Для тач */
+}
