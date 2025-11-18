@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Календарь в модальном окне</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+
+        /* Модальное окно: Стили для отображения календаря в popup-окне */
+        #modal { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background: rgba(0,0,0,0.5); }
+        #modal-content { background: white; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 400px; position: relative; }
+        #close-modal { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        #close-modal:hover { color: black; }
+        #calendar-container { max-height: 60vh; overflow-y: scroll; position: relative; }
+        .year { font-size: 1.5em; font-weight: bold; color: green; padding: 10px; }
+        .year.sticky { position: sticky; top: 0; left: 0; background: white; z-index: 10; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .year-label { text-align: left; margin: 20px 0 10px; color: gray; } /* Надпись года перед месяцами */
+        .month { margin: 20px; }
+        .month h3 { text-align: left; margin-bottom: 10px; }
+        table { border-collapse: separate; border-spacing: 0; width: 100%; } /* Таблица без границ, с разделением ячеек */
+        td { text-align: center; padding: 8px; width: 14%; border: none; } /* Убраны все границы и каркасы для дат */
+        td.noday { background: transparent; color: transparent; } /* Пустые дни полностью прозрачные, без фона и текста */
+        td { cursor: pointer; }
+        td.selected { color: blue; } /* Выделение: Только цвет текста синий, без фона или прямоугольника */
+
+        /* Отделить будни от выходных доп. отступом: добавляем отступ слева от субботы */
+        td:nth-child(6) { padding-left: 20px; } /* Суббота - отступ слева для визуального разделения */
+    </style>
+</head>
+<body>
+    <button id="openCalendar">Открыть календарь</button>
+
+    <div id="modal">
+        <div id="modal-content">
+            <span id="close-modal">&times;</span>
+            <div id="calendar-container">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Переменные для календаря
+        const calendarContainer = document.getElementById('calendar-container');
+        const calendar = document.getElementById('calendar');
+        const russianMonths = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+
+        let startDate = null; // Начало диапазона
+        let endDate = null; // Конец диапазона
+        let isDragging = false; // Флаг для отслеживания, зажата ли мышь и ведётся ли drag
+        let tempEndDate = null; // Временный конец для предпросмотра во время drag
+
+        // Функция для генерации HTML месяца (без заголовков дней недели)
+        // Здесь генерируется структура месяца: название, таблица с днями, пустые ячейки для выравнивания
+        // Изменения: Убраны все границы, пустые дни прозрачные
+        function generateMonth(year, month) {
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            let html = `<div class="month" data-year="${year}" data-month="${month}">
+                <h3>${russianMonths[month]}</h3>
+                <table>`;
+            let day = 1;
+            let weekday = firstDay === 0 ? 6 : firstDay - 1; // Корректировка: Пн=0, Вс=6 (для правильного выравнивания недель)
+            let htmlRow = '<tr>';
+            // Заполняем пустыми днями до первого дня месяца
+            for (let j = 0; j < weekday; j++) {
+                htmlRow += '<td class="noday">&nbsp;</td>';
+            }
+            // Основной цикл по дням месяца
+            while (day <= daysInMonth) {
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                htmlRow += `<td data-date="${dateStr}">${day}</td>`;
+                day++;
+                weekday++;
+                if (weekday % 7 === 0 || day > daysInMonth) {
+                    html += htmlRow + '</tr>';
+                    htmlRow = '<tr>';
+                    weekday = 0;
+                }
+            }
+            // Заполняем пустыми днями после последнего дня для полной недели
+            while (weekday % 7 !== 0) {
+                htmlRow += '<td class="noday">&nbsp;</td>';
+                weekday++;
+            }
+            if (htmlRow !== '<tr>') html += htmlRow + '</tr>';
+            html += '</table></div>';
+            return html;
+        }
+
+        // Добавление заголовка года (sticky или label)
+        // isSticky: true для фиксированного сверху, false для обычной метки перед месяцами
+        function addYearHeader(year, isSticky = false) {
+            const yearDiv = document.createElement('div');
+            yearDiv.className = `year ${isSticky ? 'sticky' : 'year-label'}`;
+            yearDiv.textContent = year;
+            yearDiv.dataset.year = year;
+            calendar.appendChild(yearDiv);
+        }
+
+        // Загрузка месяцев только для 2025-2026
+        // Здесь фиксировано загружаем два года, без infinite scroll
+        function loadMonths() {
+            // 2025 с sticky заголовком
+            addYearHeader(2025, true);
+            for (let m = 0; m < 12; m++) {
+                calendar.innerHTML += generateMonth(2025, m);
+            }
+
+            // 2026 с обычной меткой
+            addYearHeader(2026, false);
+            for (let m = 0; m < 12; m++) {
+                calendar.innerHTML += generateMonth(2026, m);
+            }
+        }
+
+        // Обновление sticky года с IntersectionObserver
+        // Наблюдает за метками годов (.year-label), когда они входят в вид — делает их sticky, а предыдущий возвращает в label
+        // Это позволяет переключаться между годами при скролле в обе стороны
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.target.classList.contains('year-label')) {
+                    const currentSticky = document.querySelector('.year.sticky');
+                    if (currentSticky) {
+                        currentSticky.classList.remove('sticky');
+                        currentSticky.classList.add('year-label');
+                    }
+                    entry.target.classList.remove('year-label');
+                    entry.target.classList.add('sticky');
+                }
+            });
+        }, { threshold: 1.0, root: calendarContainer, rootMargin: '-1px 0px 0px 0px' });
+
+        // Запуск наблюдения за всеми .year-label
+        function observeYears() {
+            document.querySelectorAll('.year-label').forEach(year => observer.observe(year));
+        }
+
+        // Функция для выделения диапазона
+        // Очищает предыдущее, затем выделяет от min до max, меняя только цвет текста на синий
+        function highlightRange() {
+            clearSelection(false); // Не очищаем start/end, только классы
+            const allDays = document.querySelectorAll('td[data-date]');
+            const min = new Date(Math.min(startDate, endDate || tempEndDate));
+            const max = new Date(Math.max(startDate, endDate || tempEndDate));
+            allDays.forEach(day => {
+                const dayDate = new Date(day.dataset.date);
+                if (dayDate >= min && dayDate <= max) {
+                    day.classList.add('selected');
+                }
+            });
+        }
+
+        // Очистка выделения
+        // fullClear: true — сбрасывает startDate и endDate; false — только убирает классы .selected
+        function clearSelection(fullClear = true) {
+            document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
+            if (fullClear) {
+                startDate = null;
+                endDate = null;
+                tempEndDate = null;
+                isDragging = false;
+            }
+        }
+
+        // Обработка событий для выбора диапазона (drag и клики)
+        // Добавляем слушатели на calendar для mousedown, mousemove, mouseup, mouseenter
+        // Логика: mousedown — start, mouseenter (при drag) — temp highlight, mouseup — fix end
+        // Если просто клик (без движения) — если start есть, set end; иначе set start
+        calendar.addEventListener('mousedown', e => {
+            if (e.target.tagName === 'TD' && e.target.dataset.date) {
+                const clickedDate = new Date(e.target.dataset.date);
+                if (startDate && !isDragging) {
+                    // Если уже есть start и не drag, то это второй клик — set end и highlight
+                    endDate = clickedDate;
+                    highlightRange();
+                } else {
+                    // Иначе — новый start, clear previous
+                    clearSelection();
+                    startDate = clickedDate;
+                    isDragging = true; // Начинаем drag
+                    e.target.classList.add('selected'); // Выделяем первую дату сразу
+                }
+            }
+        });
+
+        calendar.addEventListener('mousemove', e => {
+            if (isDragging && e.target.tagName === 'TD' && e.target.dataset.date) {
+                tempEndDate = new Date(e.target.dataset.date);
+                highlightRange(); // Предпросмотр во время движения
+            }
+        });
+
+        calendar.addEventListener('mouseup', e => {
+            if (isDragging) {
+                if (tempEndDate) {
+                    endDate = tempEndDate;
+                    highlightRange(); // Фиксируем диапазон
+                }
+                isDragging = false;
+                tempEndDate = null;
+            }
+        });
+
+        // Для mouseenter на td — чтобы drag работал плавно
+        calendar.addEventListener('mouseenter', e => {
+            if (isDragging && e.target.tagName === 'TD' && e.target.dataset.date) {
+                tempEndDate = new Date(e.target.dataset.date);
+                highlightRange();
+            }
+        }, true); // true для capture phase, чтобы ловить на всех td
+
+        // Чтобы drag не выходил за календарь — сброс при mouseleave контейнера
+        calendarContainer.addEventListener('mouseleave', () => {
+            if (isDragging) {
+                isDragging = false;
+                tempEndDate = null;
+                if (!endDate) clearSelection(); // Если не зафиксировано, очистить
+            }
+        });
+
+        // Модальное окно: Логика открытия/закрытия
+        // openBtn — кнопка для открытия, closeBtn — крестик, клик вне — закрыть
+        const modal = document.getElementById('modal');
+        const openBtn = document.getElementById('openCalendar');
+        const closeBtn = document.getElementById('close-modal');
+
+        openBtn.onclick = () => { modal.style.display = 'block'; };
+        closeBtn.onclick = () => { modal.style.display = 'none'; };
+        window.onclick = (event) => { if (event.target === modal) modal.style.display = 'none'; };
+
+        // Инициализация: Загрузка месяцев, наблюдение за годами
+        loadMonths();
+        observeYears();
+    </script>
+</body>
+</html>
