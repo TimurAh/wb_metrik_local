@@ -200,6 +200,8 @@ html, body {
 /*Название секции*/
 .section-name{
     margin: 40px 0 0 50px;
+    display: flex;
+    gap:30px;
 }
 /*фильтр бар*/
 .filter-bar{
@@ -236,6 +238,8 @@ html, body {
     width: 240px;
     height: 240px;
     transition: opacity 2s ease-in-out;
+    box-sizing: border-box;
+
 }
 .card.dragging {
     opacity: 0.3;
@@ -299,6 +303,29 @@ html, body {
     opacity: 0;
     transition: opacity .2s ease-in-out;
 }
+
+/*карточки-графы*/
+.card-graph{
+    width: 350px;
+    height: 425px;
+}
+
+.card-graph-wrapper{
+    justify-content: normal;
+}
+.card-graph-extra-visibility{
+    flex-direction: column;
+    align-items: normal;
+    gap: normal;
+}
+
+.mini-graph-canvas{
+    margin-top: 40px;
+    background-color: red;
+    width: 310px;
+    height: 230px;
+}
+
 
 
 .icon-item {

@@ -1,72 +1,88 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const cardCanvas = document.querySelector(".card-canvas");
-    const cards = cardCanvas.querySelectorAll(".card");
+    // Находим все области для перетаскивания
+    const allCanvases = document.querySelectorAll(".card-canvas");
 
     let draggedCard = null;
 
-    cards.forEach(element => {
-        const extra_v_card = element.querySelector('.card-extra-visibility')
-        const info_icon = element.querySelector('.info-item')
-        const question_icon = element.querySelector('.question-item')
+    // Инициализация: навешиваем события на все карточки во всех канвасах
+    allCanvases.forEach(canvas => {
+        const cards = canvas.querySelectorAll(".card");
 
-        element.setAttribute("draggable", true);
-        element.addEventListener("dragstart", handleDragStart);
-        element.addEventListener("dragover", handleDragOver);
-        element.addEventListener("drop", handleDrop);
-        element.addEventListener("dragend", handleDragEnd); // Опционально, для cleanup
+        cards.forEach(element => {
+            const extra_v_card = element.querySelector('.card-extra-visibility');
 
-        element.addEventListener('mouseover', () => {
-            element.classList.add('hover-card');
-            extra_v_card.classList.add('hover-active');
+            element.setAttribute("draggable", true);
+
+            element.addEventListener("dragstart", handleDragStart);
+            element.addEventListener("dragover", handleDragOver);
+            element.addEventListener("drop", handleDrop);
+            element.addEventListener("dragend", handleDragEnd);
+
+            // Ваши ховер-эффекты (оставил без изменений)
+            element.addEventListener('mouseover', () => {
+                element.classList.add('hover-card');
+                if (extra_v_card) extra_v_card.classList.add('hover-active');
+            });
+            element.addEventListener('mouseout', () => {
+                element.classList.remove('hover-card');
+                if (extra_v_card) extra_v_card.classList.remove('hover-active');
+            });
+            element.addEventListener('click', () => {
+                element.classList.toggle('active-card');
+                if (extra_v_card) extra_v_card.classList.toggle('active');
+            });
         });
-        element.addEventListener('mouseout', () => {
-            element.classList.remove('hover-card');
-            extra_v_card.classList.remove('hover-active');
-        });
-        element.addEventListener('click', () => {
-            element.classList.toggle('active-card');
-            extra_v_card.classList.toggle('active');
-        });
+    });
 
+    // --- Обработчики Drag & Drop ---
 
-        function handleDragStart(event) {
-            draggedCard = this; // Запоминаем dragged карточку
-            event.dataTransfer.effectAllowed = "move";
-            event.dataTransfer.setData("text/plain", ""); // Нужно для Firefox
-            this.classList.add("dragging"); // Добавь CSS класс для стиля (e.g., opacity: 0.5)
+    function handleDragStart(event) {
+        draggedCard = this;
+        event.dataTransfer.effectAllowed = "move";
+        event.dataTransfer.setData("text/plain", "");
+        this.classList.add("dragging");
+    }
+
+    function handleDragOver(event) {
+        // 1. ПРОВЕРКА: Запрещаем перетаскивание, если родители разные
+        // Если родитель карточки, которую тащим != родитель карточки, над которой висим
+        if (draggedCard.parentNode !== this.parentNode) {
+            return; // Выходим, не вызывая preventDefault. Браузер покажет курсор "запрещено".
         }
 
-        function handleDragOver(event) {
-            event.preventDefault(); // Разрешаем drop
-            event.dataTransfer.dropEffect = "move";
+        // Если родители совпадают — разрешаем
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "move";
+    }
+
+    function handleDrop(event) {
+        event.preventDefault();
+
+        // 2. ПРОВЕРКА: На всякий случай проверяем и здесь (защита от багов)
+        if (draggedCard.parentNode !== this.parentNode) {
+            return; // Ничего не делаем
         }
 
-        function handleDrop(event) {
-            event.preventDefault();
-            if (draggedCard !== this) {
-                // Меняем местами в DOM
-                const allCards = Array.from(cardCanvas.children);
-                const draggedIndex = allCards.indexOf(draggedCard);
-                const targetIndex = allCards.indexOf(this);
+        if (draggedCard !== this) {
+            const currentContainer = this.parentNode;
+            // Превращаем в массив только детей этого контейнера
+            const allCards = Array.from(currentContainer.children).filter(child => child.classList.contains('card'));
 
-                if (draggedIndex < targetIndex) {
-                    this.after(draggedCard); // Вставляем dragged после target
-                } else {
-                    this.before(draggedCard); // Вставляем dragged перед target
-                }
+            const draggedIndex = allCards.indexOf(draggedCard);
+            const targetIndex = allCards.indexOf(this);
+
+            // Логика сортировки (работает только внутри своего списка)
+            if (draggedIndex < targetIndex) {
+                this.after(draggedCard);
+            } else {
+                this.before(draggedCard);
             }
         }
+    }
 
-        function handleDragEnd(event) {
-            this.classList.remove("dragging");
-            draggedCard = null;
-        }
-
-        //код для активирования карточки
-
-
-
-    })
+    function handleDragEnd(event) {
+        this.classList.remove("dragging");
+        draggedCard = null;
+    }
 });
-
